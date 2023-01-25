@@ -1,0 +1,19 @@
+.traveler {
+  margin: 0;
+  padding: 40px 19px 49px;
+  max-width: 880px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 950px) {
+  .traveler {
+    margin: 0 auto;
+    max-width: 282px;
+    padding: 41px 19px 36px;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 32px;
+  }
+}

@@ -1,0 +1,25 @@
+.form__submit {
+  margin: 31px 0 0;
+  padding: 14px 0;
+  align-self: stretch;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 2px;
+  border: none;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  transition: opacity .3s ease-in-out;
+}
+
+@media screen and (max-width: 650px) {
+  .form__submit {
+    margin: 25px 0 0;
+    font-size: 14px;
+  }
+}
+
+.form__submit:hover {
+  opacity: 0.6;
+}
