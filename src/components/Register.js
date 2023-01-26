@@ -24,7 +24,7 @@ const Register = () => {
     evt.preventDefault();
     auth.register(formValue.email, formValue.password)
       .then((res) => {
-        navigate('/login', { replace: true });
+        navigate('/sign-in', { replace: true });
       }
       )
       .catch(isError)
@@ -43,7 +43,7 @@ const Register = () => {
       />
       <div className="register__signin">
         <p className="register__correction">Уже зарегистрированы?</p>
-        <Link to="login" className="register__login-link">Войти</Link>
+        <Link to="/sign-in" className="register__login-link">Войти</Link>
       </div>
     </div>
   );
