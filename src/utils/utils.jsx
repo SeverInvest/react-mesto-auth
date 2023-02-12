@@ -7,7 +7,7 @@ export function checkResponse(result) {
     return result.json();
   }
   return Promise.reject(`Ошибка: ${result.status}`);
-}
+};
 
 export function request(url, options) {
   return fetch(
@@ -15,4 +15,4 @@ export function request(url, options) {
     Object.assign(options, { headers: this._headers })
   )
     .then(this._checkResponse)
-}
+};

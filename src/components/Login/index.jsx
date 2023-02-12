@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from "../utils/Auth";
-//import './styles/Login.css';
-import { isError } from "../utils/utils.js";
-import FormRegister from "./FormRegister";
+import auth from "../../utils/Auth";
+import { isError } from "../../utils/utils";
+import FormRegister from "../FormRegister";
 
-const Login = ({ handleLogin }) => {
+function Login({ handleLogin }) {
   const [formValue, setFormValue] = useState({
-    username: '',
+    email: '',
     password: ''
   })
+  const [formValidate, setFormValidate] = useState({
+    email: '',
+    password: ''
+  })
+
   const navigate = useNavigate();
 
   const handleChange = (evt) => {
@@ -19,12 +23,17 @@ const Login = ({ handleLogin }) => {
       ...formValue,
       [name]: value
     });
+
+    setFormValidate({
+      ...formValidate, [name]: evt.target.validationMessage
+    })
   }
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!formValue.email || !formValue.password) {
       return;
-    }
+    };
     auth.authorize(formValue.email, formValue.password)
       .then((data) => {
         if (data.token) {
@@ -38,18 +47,17 @@ const Login = ({ handleLogin }) => {
   }
 
   return (
-    <div className="register">
-      <h1 className="register__welcome">
-        Вход
-      </h1>
-      <FormRegister
-        textButton="Войти"
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        formValue={formValue}
-      />
-    </div>
-  )
+    <FormRegister
+      theme="dark"
+      textHeader="Вход"
+      textButton="Войти"
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+      formValue={formValue}
+      additionally={false}
+      formValidate={formValidate}
+    />
+  );
 }
 
 export default Login;

@@ -1,9 +1,18 @@
+
+@import "../../vars";
+@import "../../mixins";
+
+
+
 .page {
-  background-color: #000;
-  padding: 0;
-  margin: 0 auto;
+  /*background-color: var(--background-dark);*/
+  /*color: var(--color-light);*/
+
+  @include padding-margin-null-auto();
+  @include theme-dark();
+  
   box-sizing: border-box;
-  color: #fff;
+  
   font-size: 16px;
   font-family: "Inter", sans-serif;
   /* Применить к тексту кёрнинг и лигатуры */

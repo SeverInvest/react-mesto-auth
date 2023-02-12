@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Main from './Main';
-import Header from './Header';
-import Footer from './Footer';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import ConfirmPopup from './ConfirmPopup';
-import ProtectedRoute from './ProtectedRoute';
-import Login from './Login';
-import Register from './Register';
-import ImagePopup from './ImagePopup';
-import api from "../utils/Api";
-import auth from "../utils/Auth";
-import { isError } from "../utils/utils.js";
-import { CurrentUserContext } from "../context/CurrentUserContext.js";
+import Main from '../Main';
+import Header from '../Header';
+import Footer from '../Footer';
+import EditProfilePopup from '../EditProfilePopup';
+import EditAvatarPopup from '../EditAvatarPopup';
+import AddPlacePopup from '../AddPlacePopup';
+import ConfirmPopup from '../ConfirmPopup';
+import ProtectedRoute from '../ProtectedRoute';
+import Login from '../Login';
+import Register from '../Register';
+import ImagePopup from '../ImagePopup';
+import api from "../../utils/Api";
+import auth from "../../utils/Auth";
+import { isError } from "../../utils/utils";
+import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -155,6 +155,7 @@ function App() {
       <div className="page">
         <Header email={email}
           onSignOut={handleSingOut}
+          loggedIn={loggedIn}
         />
 
         <Routes>
@@ -174,9 +175,10 @@ function App() {
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
         </Routes>
-
-        <Footer />
-
+        
+        {loggedIn &&
+          <Footer />
+        }
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
