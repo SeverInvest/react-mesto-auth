@@ -42,7 +42,9 @@ function Header({ onSignOut, email, loggedIn }) {
             linkTo="../sign-in"
             textLink="Выйти"
             email={email}
-            className="header__link header__link_exit"
+            classContainer="header__container header__container_top"
+            classEmail="header__link header__link_top header__email"
+            classLink="header__link header__link_top header__link_exit"
             onSignOut={onSignOut}
           />
         </div>
@@ -62,7 +64,7 @@ function Header({ onSignOut, email, loggedIn }) {
                 linkTo="../sign-up"
                 textLink="Регистрация"
                 email={email}
-                className="header__link"
+                classLink="header__link"
               />
             }
           />
@@ -74,7 +76,7 @@ function Header({ onSignOut, email, loggedIn }) {
                 linkTo="../sign-in"
                 textLink="Войти"
                 email={email}
-                className="header__link"
+                classLink="header__link"
               />
             }
           />
@@ -88,7 +90,9 @@ function Header({ onSignOut, email, loggedIn }) {
                     linkTo="../sign-in"
                     textLink="Выйти"
                     email={email}
-                    className="header__link header__link_exit"
+                    classContainer="header__container"
+                    classEmail="header__link header__email"
+                    classLink="header__link header__link_exit"
                     onSignOut={onSignOut}
                   />
                   :

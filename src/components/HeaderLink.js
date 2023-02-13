@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
 // import { useState, useEffect } from 'react';
 
-function HeaderLink({ linkTo, textLink, email, className, onSignOut = "" }) {
+function HeaderLink({ 
+  linkTo, 
+  textLink, 
+  email, 
+  classContainer,
+  classEmail,
+  classLink, 
+  onSignOut = "" }) {
 
   return (
-    <div className="header__container">
-      {email && (<p className="header__link header__email">{email}</p>)}
+    <div className={classContainer}>
+      {email && (<p className={classEmail}>{email}</p>)}
       <Link
         to={linkTo}
-        className={className}
+        className={classLink}
         onClick={onSignOut}
       >
         {textLink}

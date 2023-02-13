@@ -11,6 +11,7 @@
   --min-height-header-ladge: 119px;
   --min-height-header-small: 84px;
   --height-without-header-ladge: calc(100vh - 119px - 80px - 32px);
+  --height-without-header-small: calc(100vh - 84px - 40px - 32px);
   --transition: opacity .2s ease-out;
   --opacity: .6;
 }

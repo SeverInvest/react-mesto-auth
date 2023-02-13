@@ -83,3 +83,10 @@
     }
   }
 }
+
+@media screen and (max-width: 950px) {
+  .form-register {
+    // padding-bottom: 40px;
+    height: var(--height-without-header-small);
+  }
+}
