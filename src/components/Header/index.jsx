@@ -93,8 +93,7 @@ function Header({ onSignOut, email, loggedIn }) {
                   />
                   :
                   <button
-                    className={`${hamburgerOn ? "header__nav-btn" : "header__nav-btn_close"
-                      }`}
+                    className={`header__nav-btn ${hamburgerOn && "header__nav-btn_close"}`}
                     type="button"
                     onClick={handleMenuBtnClick}
                   ></button>
