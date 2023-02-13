@@ -11,6 +11,7 @@ import ProtectedRoute from '../ProtectedRoute';
 import Login from '../Login';
 import Register from '../Register';
 import ImagePopup from '../ImagePopup';
+import InfoTooltip from '../InfoTooltip';
 import api from "../../utils/Api";
 import auth from "../../utils/Auth";
 import { isError } from "../../utils/utils";
@@ -27,7 +28,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
-  // const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,6 +69,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsConfirmPopupOpen(false);
     setSelectedCard(null);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleCardClick(card) {
@@ -106,7 +109,15 @@ function App() {
       .catch(isError)
   }
 
-  const handleLogin = () => {
+  function handleRegister() {
+    setIsInfoTooltipPopupOpen(true);
+  }
+
+  function onSuccess(isSuccess) {
+    setIsSuccessful(isSuccess);
+  }
+
+  function handleLogin() {
     setLoggedIn(true);
   }
 
@@ -163,7 +174,7 @@ function App() {
               component={Main}
             />}
           />
-          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-up" element={<Register handleRegister={handleRegister} onSuccess={onSuccess} />} />
           <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
         </Routes>
 
@@ -199,6 +210,13 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
+
+        <InfoTooltip
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          isSuccessful={isSuccessful}
+        />
+
       </div>
     </CurrentUserContext.Provider>
   );

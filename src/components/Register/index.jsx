@@ -4,7 +4,7 @@ import auth from "../../utils/Auth";
 import FormRegister from "../FormRegister";
 import { isError } from "../../utils/utils";
 
-const Register = () => {
+function Register ({ handleRegister, onSuccess }) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -37,10 +37,16 @@ const Register = () => {
     auth.register(formValue.email, formValue.password)
       .then(() => {
         setFormValue({ email: '', password: '' });
+        onSuccess(true);
+        handleRegister();
         navigate('/sign-in', { replace: true });
       }
       )
-      .catch(isError)
+      .catch((error) => {
+        onSuccess(false);
+        handleRegister();
+        isError(error);
+      }) 
   }
 
   return (
