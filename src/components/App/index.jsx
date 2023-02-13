@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Main from '../Main';
 import Header from '../Header';
@@ -27,6 +27,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
+  // const [isSuccessful, setIsSuccessful] = useState(false);
 
   const navigate = useNavigate();
 
@@ -110,15 +111,6 @@ function App() {
   }
 
   useEffect(() => {
-    api.getInitialData()
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch(isError)
-  }, []);
-
-  useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       auth.checkToken(jwt)
@@ -131,23 +123,22 @@ function App() {
     }
   }, [navigate]);
 
-  // function handleTokenCheck() {
-  //   if (localStorage.getItem('jwt')) {
-  //     const jwt = localStorage.getItem('jwt');
-  //     auth.checkToken(jwt)
-  //       .then((res) => {
-  //         setLoggedIn(true);
-  //         navigate("/", { replace: true })
-  //       })
-  //       .catch(isError)
-  //   }
-  // }
+  useEffect(() => {
+    if (loggedIn) {
+      api.getInitialData()
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards);
+        })
+        .catch(isError)
+    }
+  }, [loggedIn]);
 
   function handleSingOut() {
     localStorage.removeItem("jwt");
     setEmail("");
     setLoggedIn(false);
-    //navigate("/sign-in", { replace: true });
+    navigate("/sign-in", { replace: true });
   }
 
   return (
@@ -160,22 +151,22 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={
-            <ProtectedRoute element={
-              <Main
-                onEditProfile={handleEditProfileClick}
-                onEditAvatar={handleEditAvatarClick}
-                onAddPlace={handleAddPlaceClick}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDeleteConfirm={handleCardDeleteClick}
-                cards={cards}
-              />
-            } loggedIn={loggedIn} />}
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDeleteConfirm={handleCardDeleteClick}
+              cards={cards}
+              component={Main}
+            />}
           />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
         </Routes>
-        
+
         {loggedIn &&
           <Footer />
         }

@@ -1,5 +1,3 @@
-import ButtonSubmit from "./ButtonSubmit"
-
 function PopupWithForm({ name, isOpen, title, ariaLabel, buttonText, onClose, onSubmit, isEnabled, children }) {
   return (
     <section className={`popup popup_type_${name} ${isOpen ? 'popup_visible' : ''}`}>
@@ -7,13 +5,7 @@ function PopupWithForm({ name, isOpen, title, ariaLabel, buttonText, onClose, on
         <h2 className="popup__header">{title}</h2>
         <form method="post" className="form" name={name} id={name} onSubmit={onSubmit}>
           {children}
-          <ButtonSubmit
-            buttonClass={`form__submit ${isEnabled ? "" : "form__submit_disabled"}`}
-            buttonAriaLabel={ariaLabel}
-            buttonName={`popup-form-submit_${name}`}
-            buttonText={buttonText}
-          />
-          {/* <button className={`form__submit ${isEnabled ? "" : "form__submit_disabled"}`}  type="submit" aria-label={ariaLabel} name={`popup-form-submit_${name}`}>{buttonText}</button> */}
+          <button className={`form__submit ${isEnabled ? "" : "form__submit_disabled"}`} type="submit" aria-label={ariaLabel} name={`popup-form-submit_${name}`}>{buttonText}</button>
         </form>
         <button onClick={onClose} className="popup__close" type="button" aria-label="Закрытие попапа"></button>
       </div>

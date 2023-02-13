@@ -1,11 +1,11 @@
-@import url(./vendor/normalize.css);
-@import url(./vendor/fonts/fonts.css);
-@import url(./vendor/my_settings.css);
+@import "./vendor/normalize.css";
+@import "./vendor/fonts/fonts.css";
+@import "./vendor/my_settings.css";
 @import "./blocks/page/page.scss";
 @import "./themes";
 
-@import url(./blocks/theme/__dark/theme__dark.css);
-@import url(./blocks/theme/__light/theme__light.css);
+// @import url(./blocks/theme/__dark/theme__dark.css);
+// @import url(./blocks/theme/__light/theme__light.css);
 
 @import url(./blocks/body/body.scss);
 // @import url(./blocks/header/header.css);
