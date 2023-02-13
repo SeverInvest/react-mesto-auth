@@ -152,6 +152,25 @@ function App() {
     navigate("/sign-in", { replace: true });
   }
 
+  function escFunction(evt) {
+    if (evt.key === "Escape") {
+      closeAllPopups()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction);
+    return () => {
+      document.removeEventListener("keydown", escFunction);
+    };
+  }, []);
+
+function clickPass(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeAllPopups();
+  }
+}
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -185,17 +204,20 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          onClickPass={clickPass}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleAddPlaceSubmit}
+          onClickPass={clickPass}
         />
 
         <ImagePopup
           card={selectedCard}
           isOpen={selectedCard}
           onClose={closeAllPopups}
+          onClickPass={clickPass}
         />
 
         <ConfirmPopup
@@ -203,18 +225,21 @@ function App() {
           onClose={closeAllPopups}
           onDeleteCard={handleDeleteCard}
           card={deletingCard}
+          onClickPass={clickPass}
         />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          onClickPass={clickPass}
         />
 
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
           isSuccessful={isSuccessful}
+          onClickPass={clickPass}
         />
 
       </div>

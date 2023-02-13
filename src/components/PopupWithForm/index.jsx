@@ -11,14 +11,13 @@ function PopupWithForm({
   isEnabled = true,
   children,
   isBtnSubmit = true,
-  clsIconAlarm = ""
+  clsIconAlarm = "",
+  onClickPass = null
   
 }) {
 
-  console.log(clsIconAlarm);
-
   return (
-    <section className={`popup popup_type_${name} ${isOpen ? 'popup_visible' : ''}`}>
+    <section className={`popup popup_type_${name} ${isOpen ? 'popup_visible' : ''}`} onClick={onClickPass}>
       <div className={`popup__container ${!isBtnSubmit && "popup__container_center"}`} >
         {clsIconAlarm &&
           <div className={`popup__icon ${clsIconAlarm}`} />
