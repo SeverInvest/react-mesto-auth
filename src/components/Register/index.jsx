@@ -22,7 +22,7 @@ const {values, handleChange, errors, isValid} = useFormAndValidation();
       handleChange={handleChange}
       values={values}
       additionally={true}
-      formValidate={errors}
+      errors={errors}
       isValid={isValid}
     />
   );
