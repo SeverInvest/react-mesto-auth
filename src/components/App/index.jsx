@@ -129,16 +129,39 @@ function App() {
       })
   }
 
-  function handleRegister() {
-    setIsInfoTooltipPopupOpen(true);
+  function handleRegister({ email, password}) {
+    auth.register(email, password)
+    .then(() => {
+      onSuccess(true);
+      setIsInfoTooltipPopupOpen(true);
+      navigate('/sign-in', { replace: true });
+    }
+    )
+    .catch((error) => {
+      onSuccess(false);
+      setIsInfoTooltipPopupOpen(true);
+      isError(error);
+    }) 
   }
 
   function onSuccess(isSuccess) {
     setIsSuccessful(isSuccess);
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
+  function handleLogin({ email, password }) {
+    auth.authorize(email, password)
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        setLoggedIn(true);
+        navigate('/', { replace: true });
+      }
+    })
+    .catch((error) => {
+      onSuccess(false);
+      setIsInfoTooltipPopupOpen(true);
+      isError(error);
+    })
   }
 
   useEffect(() => {

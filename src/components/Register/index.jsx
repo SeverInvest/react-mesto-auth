@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import auth from "../../utils/Auth";
 import FormRegister from "../FormRegister";
-import { isError } from "../../utils/utils";
 
-function Register ({ handleRegister, onSuccess }) {
+function Register ({ handleRegister }) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -13,8 +10,6 @@ function Register ({ handleRegister, onSuccess }) {
     email: '',
     password: ''
   })
-
-  const navigate = useNavigate();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -34,19 +29,7 @@ function Register ({ handleRegister, onSuccess }) {
     if (!formValue.email || !formValue.password) {
       return;
     };
-    auth.register(formValue.email, formValue.password)
-      .then(() => {
-        setFormValue({ email: '', password: '' });
-        onSuccess(true);
-        handleRegister();
-        navigate('/sign-in', { replace: true });
-      }
-      )
-      .catch((error) => {
-        onSuccess(false);
-        handleRegister();
-        isError(error);
-      }) 
+    handleRegister(formValue);
   }
 
   return (
