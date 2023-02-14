@@ -1,46 +1,36 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
-function EditProfilePopup({ 
-  isOpen, 
-  onClose, 
-  onUpdateUser, 
+function EditProfilePopup({
+  isOpen,
+  onClose,
+  onUpdateUser,
   onClickPass,
   changeButtonText,
   buttonText
 }) {
+
+  const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useFormAndValidation();
+
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [validationName, setValidationName] = useState("");
-  const [validationAbout, setValidationAbout] = useState("");
-
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-    setValidationName(evt.target.validationMessage);
-  }
-
-  function handleDescriptionChange(evt) {
-    setDescription(evt.target.value);
-    setValidationAbout(evt.target.validationMessage);
-  }
 
   function handleSubmit(evt) {
     changeButtonText(true);
     evt.preventDefault();
     onUpdateUser({
-      name: name,
-      about: description,
+      name: values.name,
+      about: values.description,
     });
   }
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-    setValidationName("");
-    setValidationAbout("");
+    resetForm();
+    setValues({ "name": currentUser.name, "description": currentUser.about });
+    setIsValid(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, isOpen]);
 
   return (
@@ -52,7 +42,7 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isEnabled={(validationAbout === "" && validationName === "")}
+      isEnabled={isValid}
       onClickPass={onClickPass}
     >
       <input
@@ -64,11 +54,11 @@ function EditProfilePopup({
         className="form__input form__input_type_name"
         name="name"
         id="input-name"
-        value={name || ""}
-        onChange={handleNameChange}
+        value={values.name || ""}
+        onChange={handleChange}
       />
       <Validation
-        errorMessage={validationName}
+        errorMessage={errors.name}
       />
       <input
         required
@@ -77,13 +67,13 @@ function EditProfilePopup({
         type="text"
         placeholder="Напишите немного о себе"
         className="form__input form__input_type_about"
-        name="about"
+        name="description"
         id="input-about"
-        value={description || ""}
-        onChange={handleDescriptionChange}
+        value={values.description || ""}
+        onChange={handleChange}
       />
       <Validation
-        errorMessage={validationAbout}
+        errorMessage={errors.description}
       />
     </PopupWithForm>
   );

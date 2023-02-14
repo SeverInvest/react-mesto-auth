@@ -1,35 +1,16 @@
-import { useState } from 'react';
 import FormRegister from "../FormRegister";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
 function Register ({ handleRegister }) {
-  const [formValue, setFormValue] = useState({
-    email: '',
-    password: '',
-  })
-  const [formValidate, setFormValidate] = useState({
-    email: '',
-    password: ''
-  })
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    });
-
-    setFormValidate({
-      ...formValidate, [name]: evt.target.validationMessage
-    })
-  }
+const {values, handleChange, errors, isValid} = useFormAndValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!formValue.email || !formValue.password) {
+    if (!isValid) {
       return;
     };
-    handleRegister(formValue);
+    handleRegister(values);
   }
 
   return (
@@ -39,9 +20,10 @@ function Register ({ handleRegister }) {
       textButton="Зарегистрироваться"
       handleSubmit={handleSubmit}
       handleChange={handleChange}
-      formValue={formValue}
+      values={values}
       additionally={true}
-      formValidate={formValidate}
+      formValidate={errors}
+      isValid={isValid}
     />
   );
 }

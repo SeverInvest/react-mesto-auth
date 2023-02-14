@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
 function EditAvatarPopup({
   isOpen,
@@ -10,12 +11,10 @@ function EditAvatarPopup({
   changeButtonText,
   buttonText
 }) {
-  const avatarRef = useRef();
-  const [validationAvatar, setValidationAvatar] = useState(" ");
 
-  function handleAvatarChange(evt) {
-    setValidationAvatar(evt.target.validationMessage);
-  }
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+
+  const avatarRef = useRef();
 
   function handleSubmit(evt) {
     changeButtonText(true);
@@ -24,8 +23,9 @@ function EditAvatarPopup({
   }
 
   useEffect(() => {
+    resetForm();
     avatarRef.current.value = '';
-    setValidationAvatar(" ");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return (
@@ -37,7 +37,7 @@ function EditAvatarPopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isEnabled={validationAvatar === ""}
+      isEnabled={isValid}
       onclickPass={onClickPass}
     >
       <input
@@ -48,10 +48,11 @@ function EditAvatarPopup({
         name="avatar"
         id="link-avatar"
         ref={avatarRef}
-        onChange={handleAvatarChange}
+        value={values.avatar || ""}
+        onChange={handleChange}
       />
       <Validation
-        errorMessage={validationAvatar}
+        errorMessage={errors.avatar}
       />
     </PopupWithForm>
   );

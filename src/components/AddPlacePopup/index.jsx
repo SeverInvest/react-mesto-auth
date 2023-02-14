@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
 function AddPlacePopup({
   isOpen,
@@ -10,37 +11,23 @@ function AddPlacePopup({
   changeButtonText,
   buttonText
 }) {
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
-  const [validationName, setValidationName] = useState(" ");
-  const [validationLink, setValidationLink] = useState(" ");
 
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-    setValidationName(evt.target.validationMessage);
-  }
-
-  function handleLinkChange(evt) {
-    setLink(evt.target.value);
-    setValidationLink(evt.target.validationMessage);
-  }
+  const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
 
   function handleSubmit(evt) {
     changeButtonText(true);
     evt.preventDefault();
     onSubmit({
-      name: name,
-      link: link,
+      name: values.name,
+      link: values.link,
     });
   }
 
   useEffect(() => {
     if (isOpen) {
-      setName("");
-      setLink("");
-      setValidationName(" ");
-      setValidationLink(" ");
+      resetForm();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return (
@@ -52,7 +39,7 @@ function AddPlacePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isEnabled={(validationLink === "" && validationName === "")}
+      isEnabled={isValid}
       onClickPass={onClickPass}
     >
       <input
@@ -64,11 +51,11 @@ function AddPlacePopup({
         className="form__input form__input_type_place"
         name="name"
         id="place-header"
-        onChange={handleNameChange}
-        value={name}
+        onChange={handleChange}
+        value={values.name || ""}
       />
       <Validation
-        errorMessage={validationName}
+        errorMessage={errors.name}
       />
       <input
         required
@@ -77,11 +64,11 @@ function AddPlacePopup({
         className="form__input form__input_type_link"
         name="link"
         id="link"
-        onChange={handleLinkChange}
-        value={link}
+        onChange={handleChange}
+        value={values.link || ""}
       />
       <Validation
-        errorMessage={validationLink}
+        errorMessage={errors.link}
       />
     </PopupWithForm>
   );

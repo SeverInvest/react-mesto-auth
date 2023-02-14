@@ -8,9 +8,10 @@ function FormRegister({
   textButton,
   handleSubmit,
   handleChange,
-  formValue,
+  values,
   additionally = false,
-  formValidate
+  errors,
+  isValid
 }) {
 
   return (
@@ -31,13 +32,13 @@ function FormRegister({
               id="email"
               name="email"
               type="email"
-              value={formValue.email || ""}
+              value={values.email || ""}
               onChange={handleChange}
               placeholder="Email"
             />
           </div>
           <div className="form-register__validation">
-            <Validation errorMessage={formValidate.email} />
+            {(!isValid && <Validation errorMessage={errors.email} />)}
           </div>
           <div className="form-register__input">
             <input
@@ -46,13 +47,13 @@ function FormRegister({
               id="password"
               name="password"
               type="password"
-              value={formValue.password || ""}
+              value={values.password || ""}
               onChange={handleChange}
               placeholder="Пароль"
             />
           </div>
           <div className="form-register__validation">
-            <Validation errorMessage={formValidate.password} />
+            {(!isValid && <Validation errorMessage={errors.password} />)}
           </div>
         </div>
 
