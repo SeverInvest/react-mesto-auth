@@ -3,11 +3,17 @@ import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, onClickPass }) {
+function EditProfilePopup({ 
+  isOpen, 
+  onClose, 
+  onUpdateUser, 
+  onClickPass,
+  changeButtonText,
+  buttonText
+}) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [buttonText, setButtonText] = useState("Сохранить");
   const [validationName, setValidationName] = useState("");
   const [validationAbout, setValidationAbout] = useState("");
 
@@ -22,7 +28,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onClickPass }) {
   }
 
   function handleSubmit(evt) {
-    setButtonText("Сохранение...");
+    changeButtonText(true);
     evt.preventDefault();
     onUpdateUser({
       name: name,
@@ -33,7 +39,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onClickPass }) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-    setButtonText("Сохранить");
     setValidationName("");
     setValidationAbout("");
   }, [currentUser, isOpen]);

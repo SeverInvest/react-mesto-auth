@@ -2,9 +2,15 @@ import { useRef, useEffect, useState } from 'react';
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onClickPass }) {
+function EditAvatarPopup({
+  isOpen,
+  onClose,
+  onUpdateAvatar,
+  onClickPass,
+  changeButtonText,
+  buttonText
+}) {
   const avatarRef = useRef();
-  const [buttonText, setButtonText] = useState("Сохранить");
   const [validationAvatar, setValidationAvatar] = useState(" ");
 
   function handleAvatarChange(evt) {
@@ -12,14 +18,13 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onClickPass }) {
   }
 
   function handleSubmit(evt) {
-    setButtonText("Сохранение...");
+    changeButtonText(true);
     evt.preventDefault();
     onUpdateAvatar(avatarRef.current.value);
   }
 
   useEffect(() => {
     avatarRef.current.value = '';
-    setButtonText("Сохранить");
     setValidationAvatar(" ");
   }, [isOpen]);
 

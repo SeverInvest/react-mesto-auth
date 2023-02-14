@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm';
 import Validation from '../Validation';
 
-function AddPlacePopup({ isOpen, onClose, onSubmit }) {
+function AddPlacePopup({
+  isOpen,
+  onClose,
+  onSubmit,
+  onClickPass,
+  changeButtonText,
+  buttonText
+}) {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
-  const [buttonText, setButtonText] = useState("Создать");
   const [validationName, setValidationName] = useState(" ");
   const [validationLink, setValidationLink] = useState(" ");
 
@@ -20,7 +26,7 @@ function AddPlacePopup({ isOpen, onClose, onSubmit }) {
   }
 
   function handleSubmit(evt) {
-    setButtonText("Сохранение...");
+    changeButtonText(true);
     evt.preventDefault();
     onSubmit({
       name: name,
@@ -32,7 +38,6 @@ function AddPlacePopup({ isOpen, onClose, onSubmit }) {
     if (isOpen) {
       setName("");
       setLink("");
-      setButtonText("Создать");
       setValidationName(" ");
       setValidationLink(" ");
     }
@@ -48,6 +53,7 @@ function AddPlacePopup({ isOpen, onClose, onSubmit }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       isEnabled={(validationLink === "" && validationName === "")}
+      onClickPass={onClickPass}
     >
       <input
         required

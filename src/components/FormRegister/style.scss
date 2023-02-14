@@ -32,7 +32,6 @@
   }
 
   &__input {
-    padding: 0;
     min-height: 19px;
     box-sizing: border-box;
     border-bottom: var(--border-bottom2);
@@ -52,7 +51,6 @@
   }
 
   &__submit {
-    padding: 0;
     margin: 0 auto;
     width: var(--width-form-register-ladge);
     height: 50px;
@@ -87,7 +85,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 650px) {
   .form-register {
     padding-bottom: 40px;
     height: var(--height-without-header-small);

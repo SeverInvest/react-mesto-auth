@@ -30,8 +30,17 @@ function App() {
   const [email, setEmail] = useState('');
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
+  const [buttonText, setButtonText] = useState("Сохранить");
 
   const navigate = useNavigate();
+
+  function changeButtonText(isSaving) {
+    if (isSaving) {
+      setButtonText("Сохранение...")
+    } else {
+      setButtonText("Сохранить")
+    }
+  }
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -41,18 +50,24 @@ function App() {
     api.setUserInfo(data)
       .then((newUser) => {
         setCurrentUser(newUser);
-        closeAllPopups();
       })
       .catch(isError)
+      .finally(() => {
+        changeButtonText(false);
+        closeAllPopups();
+      })
   }
 
   function handleUpdateAvatar(avatar) {
     api.setAvatar({ avatar: avatar })
       .then((newUser) => {
         setCurrentUser(newUser);
-        closeAllPopups();
       })
       .catch(isError)
+      .finally(() => {
+        changeButtonText(false);
+        closeAllPopups();
+      })
   }
 
   function handleEditAvatarClick() {
@@ -95,18 +110,23 @@ function App() {
       .then(() => {
         setDeletingCard(null);
         setCards((newArray) => newArray.filter((item) => card._id !== item._id));
-        closeAllPopups();
       })
       .catch(isError)
+      .finally(() => {
+        closeAllPopups();
+      })
   }
 
   function handleAddPlaceSubmit(data) {
     api.setCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
       })
       .catch(isError)
+      .finally(() => {
+        changeButtonText(false);
+        closeAllPopups();
+      })
   }
 
   function handleRegister() {
@@ -165,11 +185,11 @@ function App() {
     };
   }, []);
 
-function clickPass(evt) {
-  if (evt.target === evt.currentTarget) {
-    closeAllPopups();
+  function clickPass(evt) {
+    if (evt.target === evt.currentTarget) {
+      closeAllPopups();
+    }
   }
-}
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -205,12 +225,16 @@ function clickPass(evt) {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
           onClickPass={clickPass}
+          changeButtonText={changeButtonText}
+          buttonText={buttonText}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleAddPlaceSubmit}
           onClickPass={clickPass}
+          changeButtonText={changeButtonText}
+          buttonText={buttonText}
         />
 
         <ImagePopup
@@ -233,6 +257,8 @@ function clickPass(evt) {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           onClickPass={clickPass}
+          changeButtonText={changeButtonText}
+          buttonText={buttonText}
         />
 
         <InfoTooltip
