@@ -1,6 +1,6 @@
 # Проект: Место
 -------
-Учебная работа. На REACT. Из фишек - создание pop-up.
+Учебная работа. На REACT. Из фишек - создание pop-up, валидация вводимой информации.
 -------
 ### Функционал
 Приложение позволяет 
@@ -9,6 +9,7 @@
 * редактировать свой профиль
 * ставить лайки на карточках
 * просматривать фотографию из карточки в увеличенном размере
+* регистрироваться на сайте с помощью email и пароля
 -------
 ### Технологии
 * Figma
@@ -21,13 +22,15 @@
 * webpack
 * api 
 * REACT
+* sass
 -------
 ### Адаптивный сайт для монитора, планшета и смартфона:
 * от 320px до 950px (при разрешении монитора больше 950px по горизонтали - сайт центрируется)
 -------
 
 **Figma**
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Ссылка 1 на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Ссылка 2 на макет в Figma](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1)
 -------
 
 ### В планах:
@@ -43,6 +46,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -51,11 +55,13 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ### `npm test`
+### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
+### `yarn build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -66,6 +72,7 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
+### `yarn rject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
