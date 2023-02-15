@@ -50,11 +50,11 @@ function App() {
     api.setUserInfo(data)
       .then((newUser) => {
         setCurrentUser(newUser);
+        closeAllPopups();
       })
       .catch(isError)
       .finally(() => {
         changeButtonText(false);
-        closeAllPopups();
       })
   }
 
@@ -62,11 +62,11 @@ function App() {
     api.setAvatar({ avatar: avatar })
       .then((newUser) => {
         setCurrentUser(newUser);
+        closeAllPopups();
       })
       .catch(isError)
       .finally(() => {
         changeButtonText(false);
-        closeAllPopups();
       })
   }
 
@@ -110,10 +110,10 @@ function App() {
       .then(() => {
         setDeletingCard(null);
         setCards((newArray) => newArray.filter((item) => card._id !== item._id));
+        closeAllPopups();
       })
       .catch(isError)
       .finally(() => {
-        closeAllPopups();
       })
   }
 
@@ -121,11 +121,11 @@ function App() {
     api.setCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch(isError)
       .finally(() => {
         changeButtonText(false);
-        closeAllPopups();
       })
   }
 
