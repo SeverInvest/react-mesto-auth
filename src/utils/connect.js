@@ -8,3 +8,14 @@ const connect = {
 };
 
 export default connect;
+
+// TODO:
+// const connect = {
+//     "baseUrl":
+//         "http://localhost:3001",
+//     "headers": {
+//         'Content-Type': "application/json"
+//     }
+// };
+
+// export default connect;

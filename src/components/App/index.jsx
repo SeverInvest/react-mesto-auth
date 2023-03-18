@@ -206,6 +206,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", escFunction);
     };
+    // eslint-disable-next-line
   }, []);
 
   function clickPass(evt) {
